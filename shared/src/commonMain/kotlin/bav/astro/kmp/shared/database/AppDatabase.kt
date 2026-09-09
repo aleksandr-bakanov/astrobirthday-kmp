@@ -28,5 +28,3 @@ fun getRoomDatabase(
         .setQueryCoroutineContext(Dispatchers.IO)
         .build()
 }
-
-expect fun getDatabaseBuilder(): RoomDatabase.Builder<AppDatabase>

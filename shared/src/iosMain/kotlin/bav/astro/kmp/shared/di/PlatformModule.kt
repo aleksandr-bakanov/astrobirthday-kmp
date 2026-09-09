@@ -1,19 +1,23 @@
-package bav.astro.kmp.shared.database
+package bav.astro.kmp.shared.di
 
 import androidx.room.Room
-import androidx.room.RoomDatabase
+import bav.astro.kmp.shared.database.AppDatabase
+import bav.astro.kmp.shared.database.AppDatabaseConstructor
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSUserDomainMask
 import kotlinx.cinterop.ExperimentalForeignApi
+import org.koin.dsl.module
 
 @OptIn(ExperimentalForeignApi::class)
-actual fun getDatabaseBuilder(): RoomDatabase.Builder<AppDatabase> {
-    val dbFilePath = documentDirectory() + "/astro.db"
-    return Room.databaseBuilder<AppDatabase>(
-        name = dbFilePath,
-        factory = { AppDatabaseConstructor.initialize() }
-    )
+actual val platformModule = module {
+    single {
+        val dbFilePath = documentDirectory() + "/astro.db"
+        Room.databaseBuilder<AppDatabase>(
+            name = dbFilePath,
+            factory = { AppDatabaseConstructor.initialize() }
+        )
+    }
 }
 
 @OptIn(ExperimentalForeignApi::class)
