@@ -1,49 +1,36 @@
 package bav.astro.kmp
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.resources.painterResource
-
-import astrokmp.shared.generated.resources.Res
-import astrokmp.shared.generated.resources.compose_multiplatform
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.ui.NavDisplay
+import bav.astro.kmp.shared.navigation.NavKey
+import bav.astro.kmp.shared.ui.PersonListScreen
+import bav.astro.kmp.shared.ui.PersonListViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.primaryContainer)
-                .safeContentPadding()
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
+        val backStack = remember { mutableStateListOf<NavKey>(NavKey.PersonList) }
+
+        NavDisplay(
+            backStack = backStack,
+            onBack = { 
+                if (backStack.size > 1) {
+                    backStack.removeLastOrNull() 
+                }
+            },
+            entryProvider = entryProvider {
+                entry<NavKey.PersonList> {
+                    val viewModel = koinViewModel<PersonListViewModel>()
+                    PersonListScreen(viewModel = viewModel)
                 }
             }
-        }
+        )
     }
 }
