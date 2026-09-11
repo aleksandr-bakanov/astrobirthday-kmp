@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="no_entries">Нет записей</string>
+    <string name="add_person">Добавить человека</string>
+    <string name="name">Имя</string>
+    <string name="birthday_format">День рождения (дд-мм-гггг)</string>
+    <string name="submit">Сохранить</string>
+    <string name="cancel">Отмена</string>
 </resources>

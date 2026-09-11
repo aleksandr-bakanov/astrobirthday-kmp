@@ -6,4 +6,7 @@ import kotlinx.serialization.Serializable
 sealed interface NavKey {
     @Serializable
     data object PersonList : NavKey
+
+    @Serializable
+    data object AddPerson : NavKey
 }

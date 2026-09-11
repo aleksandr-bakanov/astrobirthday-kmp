@@ -32,6 +32,7 @@ kotlin {
     
        compilerOptions {
            jvmTarget = JvmTarget.JVM_11
+           freeCompilerArgs.add("-opt-in=androidx.compose.foundation.style.ExperimentalFoundationStyleApi")
        }
        androidResources {
            enable = true
@@ -61,6 +62,7 @@ kotlin {
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)
+            implementation(libs.compose.material.icons)
             implementation(libs.compose.ui)
             implementation(libs.compose.components.resources)
             implementation(libs.compose.uiToolingPreview)
