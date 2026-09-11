@@ -16,7 +16,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import astrokmp.shared.generated.resources.Res
+import astrokmp.shared.generated.resources.no_entries
 import bav.astro.kmp.shared.database.Person
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun PersonListScreen(
@@ -31,7 +34,7 @@ fun PersonListScreen(
     ) {
         if (people.isEmpty()) {
             Text(
-                text = "No entries",
+                text = stringResource(Res.string.no_entries),
                 style = MaterialTheme.typography.bodyLarge
             )
         } else {
