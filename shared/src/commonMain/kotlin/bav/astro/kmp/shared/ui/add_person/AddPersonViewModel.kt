@@ -1,4 +1,4 @@
-package bav.astro.kmp.shared.ui
+package bav.astro.kmp.shared.ui.add_person
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,8 +32,7 @@ class AddPersonViewModel(
         viewModelScope.launch {
             isSubmitting = true
             try {
-                val dbDate = convertDateToDbFormat(birthday)
-                repository.insertPerson(Person(name = name, birthday = dbDate))
+                repository.insertPerson(Person(name = name, birthday = birthday))
                 onSuccess()
             } finally {
                 isSubmitting = false
@@ -44,11 +43,5 @@ class AddPersonViewModel(
     private fun isValidDate(date: String): Boolean {
         // Simple regex for dd-mm-yyyy
         return Regex("""\d{2}-\d{2}-\d{4}""").matches(date)
-    }
-
-    private fun convertDateToDbFormat(date: String): String {
-        // dd-mm-yyyy -> yyyy-mm-dd
-        val parts = date.split("-")
-        return "${parts[2]}-${parts[1]}-${parts[0]}"
     }
 }

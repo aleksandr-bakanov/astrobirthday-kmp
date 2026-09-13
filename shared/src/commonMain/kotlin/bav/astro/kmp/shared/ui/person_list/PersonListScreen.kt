@@ -1,4 +1,4 @@
-package bav.astro.kmp.shared.ui
+package bav.astro.kmp.shared.ui.person_list
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

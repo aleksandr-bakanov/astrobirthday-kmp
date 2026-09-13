@@ -10,10 +10,10 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import bav.astro.kmp.shared.navigation.BottomSheetSceneStrategy
 import bav.astro.kmp.shared.navigation.NavKey
-import bav.astro.kmp.shared.ui.AddPersonScreen
-import bav.astro.kmp.shared.ui.AddPersonViewModel
-import bav.astro.kmp.shared.ui.PersonListScreen
-import bav.astro.kmp.shared.ui.PersonListViewModel
+import bav.astro.kmp.shared.ui.add_person.AddPersonScreen
+import bav.astro.kmp.shared.ui.add_person.AddPersonViewModel
+import bav.astro.kmp.shared.ui.person_list.PersonListScreen
+import bav.astro.kmp.shared.ui.person_list.PersonListViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
