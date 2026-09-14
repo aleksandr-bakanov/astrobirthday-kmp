@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 data class Person(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String,
-    val birthday: String // format dd-mm-yyyy
+    val birthday: String // format yyyy-mm-dd
 )

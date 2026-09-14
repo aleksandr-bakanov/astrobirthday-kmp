@@ -33,12 +33,19 @@ class AddPersonViewModel(
         viewModelScope.launch {
             isSubmitting = true
             try {
-                repository.insertPerson(Person(name = name, birthday = birthday))
+                repository.insertPerson(
+                    Person(name = name, birthday = convertBirthdayForDb(birthday))
+                )
                 onSuccess()
             } finally {
                 isSubmitting = false
             }
         }
+    }
+
+    private fun convertBirthdayForDb(birthday: String): String {
+        val parts = birthday.split("-")
+        return "${parts[2]}-${parts[1]}-${parts[0]}"
     }
 
     private fun isValidDate(date: String): Boolean {
