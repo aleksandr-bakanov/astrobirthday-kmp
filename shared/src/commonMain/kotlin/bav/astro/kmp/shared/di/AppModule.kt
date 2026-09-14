@@ -4,6 +4,7 @@ import bav.astro.kmp.shared.database.AppDatabase
 import bav.astro.kmp.shared.database.getRoomDatabase
 import bav.astro.kmp.shared.repository.PersonRepository
 import bav.astro.kmp.shared.ui.add_person.AddPersonViewModel
+import bav.astro.kmp.shared.ui.birthdays.BirthdaysViewModel
 import bav.astro.kmp.shared.ui.person_list.PersonListViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
@@ -14,6 +15,7 @@ val commonModule = module {
     single { PersonRepository(get()) }
     viewModelOf(::PersonListViewModel)
     viewModelOf(::AddPersonViewModel)
+    viewModelOf(::BirthdaysViewModel)
 }
 
 val appModule = listOf(commonModule, platformModule)

@@ -6,4 +6,6 @@
     <string name="birthday_format">Birthday (dd-mm-yyyy)</string>
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
+    <string name="birthdays">Birthdays</string>
+    <string name="people">People</string>
 </resources>
