@@ -1,9 +1,13 @@
 package bav.astro.kmp.shared.ui.birthdays
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,6 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import astrokmp.shared.generated.resources.Res
 import astrokmp.shared.generated.resources.no_entries
+import astrokmp.shared.generated.resources.years_amount
+import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -56,22 +62,42 @@ fun BirthdaysScreen(
 
 @Composable
 fun BirthdayRow(data: PersonBirthdayData) {
-    Column(
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(16.dp),
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(
-            text = data.name,
-            style = MaterialTheme.typography.titleMedium
-        )
-        Text(
-            text = data.birthday.toString(),
-            style = MaterialTheme.typography.bodySmall
-        )
-        Text(
-            text = data.planetType.toString(),
-            style = MaterialTheme.typography.bodySmall
-        )
+        Column(
+            horizontalAlignment = Alignment.Start
+        ) {
+            Text(
+                text = data.name,
+                style = MaterialTheme.typography.headlineLarge
+            )
+            Text(
+                text = pluralStringResource(
+                    Res.plurals.years_amount,
+                    data.ageOnNextBirthday,
+                    data.ageOnNextBirthday,
+                ),
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+        Column(
+            modifier = Modifier.padding(top = 8.dp),
+            horizontalAlignment = Alignment.End
+        ) {
+            Text(
+                text = data.planetType.toString(),
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = data.birthday.toString(),
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
     }
 }

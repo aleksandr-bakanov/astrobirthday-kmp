@@ -56,7 +56,8 @@ object PlanetUtils {
                     PersonBirthdayData(
                         name = person.name,
                         planetType = planet.type,
-                        birthday = birthday,
+                        ageOnNextBirthday = birthday.ageOnNextBirthday,
+                        birthday = birthday.nearestBirthday,
                     )
                 }
                 result = (result + personData)
@@ -79,13 +80,19 @@ object PlanetUtils {
         isItEarth: Boolean,
         period: Double,
         size: Int,
-    ) : List<LocalDate> {
+    ) : List<NearestBirthdayData> {
         val today: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault())
         if (isItEarth) {
             val currentAmountOfYears = personBirthday.yearsUntil(today)
             return buildList {
                 for (i in 1..size) {
-                    add(personBirthday.plus(currentAmountOfYears + i, DateTimeUnit.YEAR))
+                    add(
+                        NearestBirthdayData(
+                            nearestBirthday = personBirthday
+                                .plus(currentAmountOfYears + i, DateTimeUnit.YEAR),
+                            ageOnNextBirthday = currentAmountOfYears + 1,
+                        )
+                    )
                 }
             }
         } else {
@@ -99,15 +106,26 @@ object PlanetUtils {
                 value = ceil(period * ceil(currentYearsOnPlanet)).toLong(),
                 unit = DateTimeUnit.DAY
             )
+            val ageOnFirstNextBirthday = currentYearsOnPlanet.toInt() + 1
             return buildList {
-                add(firstNextBirthday)
+                add(
+                    NearestBirthdayData(
+                        nearestBirthday = firstNextBirthday,
+                        ageOnNextBirthday = ageOnFirstNextBirthday,
+                    )
+                )
                 if (size > 1) {
                     for (i in 1 until size) {
                         val nextBirthday = firstNextBirthday.plus(
                             value = ceil(period * i.toDouble()).toLong(),
                             unit = DateTimeUnit.DAY
                         )
-                        add(nextBirthday)
+                        add(
+                            NearestBirthdayData(
+                                nearestBirthday = nextBirthday,
+                                ageOnNextBirthday = ageOnFirstNextBirthday + i,
+                            )
+                        )
                     }
                 }
             }
@@ -126,3 +144,8 @@ object PlanetUtils {
         Planet(PlanetType.PLUTO, 90553.02),
     )
 }
+
+data class NearestBirthdayData(
+    val nearestBirthday: LocalDate,
+    val ageOnNextBirthday: Int,
+)

@@ -8,4 +8,9 @@
     <string name="cancel">Cancel</string>
     <string name="birthdays">Birthdays</string>
     <string name="people">People</string>
+
+    <plurals name="years_amount">
+        <item quantity="one">%1$d year</item>
+        <item quantity="other">%1$d years</item>
+    </plurals>
 </resources>
