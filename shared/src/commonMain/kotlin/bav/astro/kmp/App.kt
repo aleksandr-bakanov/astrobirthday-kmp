@@ -17,6 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import astrokmp.shared.generated.resources.Res
 import astrokmp.shared.generated.resources.birthdays
@@ -27,10 +29,13 @@ import bav.astro.kmp.shared.ui.add_person.AddPersonScreen
 import bav.astro.kmp.shared.ui.add_person.AddPersonViewModel
 import bav.astro.kmp.shared.ui.birthdays.BirthdaysScreen
 import bav.astro.kmp.shared.ui.birthdays.BirthdaysViewModel
+import bav.astro.kmp.shared.ui.edit_person.EditPersonScreen
+import bav.astro.kmp.shared.ui.edit_person.EditPersonViewModel
 import bav.astro.kmp.shared.ui.person_list.PersonListScreen
 import bav.astro.kmp.shared.ui.person_list.PersonListViewModel
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -72,6 +77,10 @@ fun App() {
             NavDisplay(
                 modifier = Modifier.padding(paddingValues),
                 backStack = backStack,
+                entryDecorators = listOf(
+                    rememberSaveableStateHolderNavEntryDecorator(),
+                    rememberViewModelStoreNavEntryDecorator()
+                ),
                 onBack = {
                     if (backStack.size > 1) {
                         backStack.removeLastOrNull()
@@ -87,7 +96,12 @@ fun App() {
                         val viewModel = koinViewModel<PersonListViewModel>()
                         PersonListScreen(
                             viewModel = viewModel,
-                            onAddPersonClick = { backStack.add(NavKey.AddPerson) }
+                            onAddPersonClick = { backStack.add(NavKey.AddPerson) },
+                            onEditPersonClick = { person ->
+                                backStack.add(
+                                    NavKey.EditPerson(personId = person.id)
+                                )
+                            }
                         )
                     }
                     entry<NavKey.AddPerson>(
@@ -95,6 +109,17 @@ fun App() {
                     ) {
                         val viewModel = koinViewModel<AddPersonViewModel>()
                         AddPersonScreen(
+                            viewModel = viewModel,
+                            onDismiss = { backStack.removeLastOrNull() }
+                        )
+                    }
+                    entry<NavKey.EditPerson> {
+                        val viewModel = koinViewModel<EditPersonViewModel>(
+                            parameters = {
+                                parametersOf(it.personId)
+                            }
+                        )
+                        EditPersonScreen(
                             viewModel = viewModel,
                             onDismiss = { backStack.removeLastOrNull() }
                         )

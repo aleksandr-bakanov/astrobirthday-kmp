@@ -10,4 +10,10 @@ class PersonRepository(private val personDao: PersonDao) {
     suspend fun insertPerson(person: Person) {
         personDao.insert(person)
     }
+
+    suspend fun updatePerson(person: Person) {
+        personDao.update(person)
+    }
+
+    suspend fun getPersonById(id: Int): Person? = personDao.getPersonById(id)
 }

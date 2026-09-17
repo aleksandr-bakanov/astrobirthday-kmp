@@ -12,4 +12,9 @@ sealed interface NavKey {
 
     @Serializable
     data object AddPerson : NavKey
+
+    @Serializable
+    data class EditPerson(
+        val personId: Int,
+    ) : NavKey
 }

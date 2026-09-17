@@ -2,9 +2,11 @@
 <resources>
     <string name="no_entries">No entries</string>
     <string name="add_person">Add person</string>
+    <string name="edit_person">Edit person</string>
     <string name="name">Name</string>
     <string name="birthday_format">Birthday (dd-mm-yyyy)</string>
     <string name="submit">Submit</string>
+    <string name="update">Update</string>
     <string name="cancel">Cancel</string>
     <string name="birthdays">Birthdays</string>
     <string name="people">People</string>
