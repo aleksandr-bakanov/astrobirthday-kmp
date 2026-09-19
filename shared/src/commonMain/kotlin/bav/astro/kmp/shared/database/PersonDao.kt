@@ -1,6 +1,7 @@
 package bav.astro.kmp.shared.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
@@ -13,6 +14,9 @@ interface PersonDao {
 
     @Update
     suspend fun update(person: Person)
+
+    @Delete
+    suspend fun delete(person: Person)
 
     @Query("SELECT * FROM Person")
     fun getAllPeople(): Flow<List<Person>>

@@ -15,5 +15,9 @@ class PersonRepository(private val personDao: PersonDao) {
         personDao.update(person)
     }
 
+    suspend fun deletePerson(person: Person) {
+        personDao.delete(person)
+    }
+
     suspend fun getPersonById(id: Int): Person? = personDao.getPersonById(id)
 }

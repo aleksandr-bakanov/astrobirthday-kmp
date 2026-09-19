@@ -20,11 +20,17 @@ class EditPersonViewModel(
     var isSubmitting by mutableStateOf(false)
         private set
 
+    var isDeleting by mutableStateOf(false)
+        private set
+
+    var person: Person? = null
+
     init {
         viewModelScope.launch {
             repository.getPersonById(personId)?.let { person ->
                 name = person.name
                 birthday = convertBirthdayForDb(person.birthday)
+                this@EditPersonViewModel.person = person
             }
         }
     }
@@ -53,6 +59,20 @@ class EditPersonViewModel(
                 onSuccess()
             } finally {
                 isSubmitting = false
+            }
+        }
+    }
+
+    fun delete(onSuccess: () -> Unit) {
+        person?.let { p ->
+            viewModelScope.launch {
+                isDeleting = true
+                try {
+                    repository.deletePerson(p)
+                    onSuccess()
+                } finally {
+                    isDeleting = false
+                }
             }
         }
     }
