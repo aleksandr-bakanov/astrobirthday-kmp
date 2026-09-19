@@ -8,10 +8,11 @@ import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 
-@Database(entities = [Person::class], version = 1)
+@Database(entities = [Person::class, PlanetEntity::class], version = 1)
 @ConstructedBy(AppDatabaseConstructor::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun personDao(): PersonDao
+    abstract fun planetDao(): PlanetDao
 }
 
 // The Room compiler generates the `actual` implementations.

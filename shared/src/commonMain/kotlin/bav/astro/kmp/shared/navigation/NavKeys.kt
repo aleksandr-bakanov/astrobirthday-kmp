@@ -17,4 +17,7 @@ sealed interface NavKey {
     data class EditPerson(
         val personId: Int,
     ) : NavKey
+
+    @Serializable
+    data object PlanetList : NavKey
 }

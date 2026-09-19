@@ -3,6 +3,8 @@
     <string name="no_entries">No entries</string>
     <string name="add_person">Add person</string>
     <string name="edit_person">Edit person</string>
+    <string name="add_planet">Add planet</string>
+    <string name="edit_planet">Edit planet</string>
     <string name="name">Name</string>
     <string name="birthday_format">Birthday (dd-mm-yyyy)</string>
     <string name="submit">Submit</string>
@@ -11,6 +13,7 @@
     <string name="cancel">Cancel</string>
     <string name="birthdays">Birthdays</string>
     <string name="people">People</string>
+    <string name="planets">Planets</string>
 
     <plurals name="years_amount">
         <item quantity="one">%1$d year</item>

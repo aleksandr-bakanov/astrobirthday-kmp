@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +24,7 @@ import androidx.navigation3.ui.NavDisplay
 import astrokmp.shared.generated.resources.Res
 import astrokmp.shared.generated.resources.birthdays
 import astrokmp.shared.generated.resources.people
+import astrokmp.shared.generated.resources.planets
 import bav.astro.kmp.shared.navigation.BottomSheetSceneStrategy
 import bav.astro.kmp.shared.navigation.NavKey
 import bav.astro.kmp.shared.ui.add_person.AddPersonScreen
@@ -33,6 +35,8 @@ import bav.astro.kmp.shared.ui.edit_person.EditPersonScreen
 import bav.astro.kmp.shared.ui.edit_person.EditPersonViewModel
 import bav.astro.kmp.shared.ui.person_list.PersonListScreen
 import bav.astro.kmp.shared.ui.person_list.PersonListViewModel
+import bav.astro.kmp.shared.ui.planet_list.PlanetListScreen
+import bav.astro.kmp.shared.ui.planet_list.PlanetListViewModel
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -70,6 +74,17 @@ fun App() {
                         },
                         icon = { Icon(Icons.Default.Person, contentDescription = null) },
                         label = { Text(stringResource(Res.string.people)) }
+                    )
+                    NavigationBarItem(
+                        selected = currentRoot == NavKey.PlanetList,
+                        onClick = {
+                            if (currentRoot != NavKey.PlanetList) {
+                                backStack.clear()
+                                backStack.add(NavKey.PlanetList)
+                            }
+                        },
+                        icon = { Icon(Icons.Default.Star, contentDescription = null) },
+                        label = { Text(stringResource(Res.string.planets)) }
                     )
                 }
             }
@@ -122,6 +137,18 @@ fun App() {
                         EditPersonScreen(
                             viewModel = viewModel,
                             onDismiss = { backStack.removeLastOrNull() }
+                        )
+                    }
+                    entry<NavKey.PlanetList> {
+                        val viewModel = koinViewModel<PlanetListViewModel>()
+                        PlanetListScreen(
+                            viewModel = viewModel,
+                            onAddPlanetClick = {  },
+                            onEditPlanetClick = { planet ->
+//                                backStack.add(
+//                                    NavKey.EditPerson(personId = person.id)
+//                                )
+                            }
                         )
                     }
                 }

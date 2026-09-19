@@ -3,6 +3,8 @@
     <string name="no_entries">Нет записей</string>
     <string name="add_person">Добавить человека</string>
     <string name="edit_person">Редактировать человека</string>
+    <string name="add_planet">Добавить планету</string>
+    <string name="edit_planet">Редактировать планету</string>
     <string name="name">Имя</string>
     <string name="birthday_format">День рождения (дд-мм-гггг)</string>
     <string name="submit">Сохранить</string>
@@ -11,6 +13,7 @@
     <string name="cancel">Отмена</string>
     <string name="birthdays">Дни рождения</string>
     <string name="people">Люди</string>
+    <string name="planets">Планеты</string>
 
     <plurals name="years_amount">
         <item quantity="one">%1$d год</item>
