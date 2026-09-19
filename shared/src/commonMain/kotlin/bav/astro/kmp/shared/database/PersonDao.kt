@@ -21,6 +21,9 @@ interface PersonDao {
     @Query("SELECT * FROM Person")
     fun getAllPeople(): Flow<List<Person>>
 
+    @Query("SELECT * FROM Person WHERE isVisible = 1")
+    fun getVisiblePeople(): Flow<List<Person>>
+
     @Query("SELECT * FROM Person WHERE id = :id")
     suspend fun getPersonById(id: Int): Person?
 }

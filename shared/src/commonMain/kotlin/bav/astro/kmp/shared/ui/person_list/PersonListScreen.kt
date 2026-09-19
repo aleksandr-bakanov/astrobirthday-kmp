@@ -4,13 +4,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
@@ -29,6 +33,7 @@ import astrokmp.shared.generated.resources.Res
 import astrokmp.shared.generated.resources.add_person
 import astrokmp.shared.generated.resources.no_entries
 import bav.astro.kmp.shared.database.Person
+import bav.astro.kmp.shared.util.convertBirthdayForDb
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -68,6 +73,7 @@ fun PersonListScreen(
                         PersonRow(
                             person = person,
                             onEditPersonClick = onEditPersonClick,
+                            onSwitchVisibilityClick = viewModel::switchPersonVisibility,
                         )
                         HorizontalDivider()
                     }
@@ -81,6 +87,7 @@ fun PersonListScreen(
 fun PersonRow(
     person: Person,
     onEditPersonClick: (Person) -> Unit,
+    onSwitchVisibilityClick: (Person) -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -97,14 +104,23 @@ fun PersonRow(
                 style = MaterialTheme.typography.titleLarge
             )
             Text(
-                text = person.birthday,
+                text = convertBirthdayForDb(person.birthday),
                 style = MaterialTheme.typography.bodyMedium
             )
         }
-        Column(
-            modifier = Modifier.padding(top = 8.dp),
-            horizontalAlignment = Alignment.End
-        ) {
+        Row {
+            Button(
+                onClick = { onSwitchVisibilityClick(person) }
+            ) {
+                Icon(
+                    imageVector = if (person.isVisible)
+                        Icons.Default.CheckCircle
+                    else
+                        Icons.Default.Close,
+                    contentDescription = null
+                )
+            }
+            Spacer(modifier = Modifier.width(4.dp))
             Button(
                 onClick = { onEditPersonClick(person) }
             ) {

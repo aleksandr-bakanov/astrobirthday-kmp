@@ -9,7 +9,6 @@ import bav.astro.kmp.shared.ui.edit_person.EditPersonViewModel
 import bav.astro.kmp.shared.ui.person_list.PersonListViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
-import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 
 val commonModule = module {

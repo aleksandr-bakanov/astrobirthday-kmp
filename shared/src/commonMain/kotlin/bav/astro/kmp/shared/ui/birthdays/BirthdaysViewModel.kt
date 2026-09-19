@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.stateIn
 class BirthdaysViewModel(
     repository: PersonRepository,
 ) : ViewModel() {
-    val uiState: StateFlow<List<PersonBirthdayData>> = repository.getAllPeople()
+    val uiState: StateFlow<List<PersonBirthdayData>> = repository.getVisiblePeople()
         .map { people ->
             PlanetUtils.getBirthdays(
                 persons = people,

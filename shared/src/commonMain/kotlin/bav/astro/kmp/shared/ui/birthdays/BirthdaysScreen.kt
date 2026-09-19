@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import astrokmp.shared.generated.resources.Res
 import astrokmp.shared.generated.resources.no_entries
 import astrokmp.shared.generated.resources.years_amount
+import bav.astro.kmp.shared.util.convertBirthdayForDb
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -95,7 +96,7 @@ fun BirthdayRow(data: PersonBirthdayData) {
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = data.birthday.toString(),
+                text = convertBirthdayForDb(data.birthday.toString()),
                 style = MaterialTheme.typography.bodyMedium
             )
         }

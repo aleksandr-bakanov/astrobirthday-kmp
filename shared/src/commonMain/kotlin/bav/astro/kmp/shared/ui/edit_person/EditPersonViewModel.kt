@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import bav.astro.kmp.shared.database.Person
 import bav.astro.kmp.shared.repository.PersonRepository
+import bav.astro.kmp.shared.util.convertBirthdayForDb
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 
@@ -53,7 +54,8 @@ class EditPersonViewModel(
                     Person(
                         id = personId,
                         name = name,
-                        birthday = convertBirthdayForDb(birthday)
+                        birthday = convertBirthdayForDb(birthday),
+                        isVisible = person?.isVisible ?: true
                     )
                 )
                 onSuccess()
@@ -75,11 +77,6 @@ class EditPersonViewModel(
                 }
             }
         }
-    }
-
-    private fun convertBirthdayForDb(birthday: String): String {
-        val parts = birthday.split("-")
-        return "${parts[2]}-${parts[1]}-${parts[0]}"
     }
 
     private fun isValidDate(date: String): Boolean {

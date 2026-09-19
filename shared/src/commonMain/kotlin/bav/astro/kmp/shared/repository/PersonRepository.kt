@@ -6,7 +6,9 @@ import kotlinx.coroutines.flow.Flow
 
 class PersonRepository(private val personDao: PersonDao) {
     fun getAllPeople(): Flow<List<Person>> = personDao.getAllPeople()
-    
+
+    fun getVisiblePeople(): Flow<List<Person>> = personDao.getVisiblePeople()
+
     suspend fun insertPerson(person: Person) {
         personDao.insert(person)
     }

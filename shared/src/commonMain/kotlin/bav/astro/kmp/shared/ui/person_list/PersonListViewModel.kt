@@ -7,9 +7,10 @@ import bav.astro.kmp.shared.repository.PersonRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 class PersonListViewModel(
-    repository: PersonRepository
+    private val repository: PersonRepository
 ) : ViewModel() {
     val uiState: StateFlow<List<Person>> = repository.getAllPeople()
         .stateIn(
@@ -17,4 +18,12 @@ class PersonListViewModel(
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
+
+    fun switchPersonVisibility(person: Person) {
+        viewModelScope.launch {
+            repository.updatePerson(
+                person.copy(isVisible = !person.isVisible)
+            )
+        }
+    }
 }
