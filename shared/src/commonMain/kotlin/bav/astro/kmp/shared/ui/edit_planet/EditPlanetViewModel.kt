@@ -1,4 +1,4 @@
-package bav.astro.kmp.shared.ui.add_planet
+package bav.astro.kmp.shared.ui.edit_planet
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -9,7 +9,8 @@ import bav.astro.kmp.shared.database.PlanetEntity
 import bav.astro.kmp.shared.repository.PlanetRepository
 import kotlinx.coroutines.launch
 
-class AddPlanetViewModel(
+class EditPlanetViewModel(
+    private val planetId: Int,
     private val repository: PlanetRepository
 ) : ViewModel() {
     var name by mutableStateOf("")
@@ -17,6 +18,21 @@ class AddPlanetViewModel(
 
     var isSubmitting by mutableStateOf(false)
         private set
+
+    var isDeleting by mutableStateOf(false)
+        private set
+
+    var planet: PlanetEntity? = null
+
+    init {
+        viewModelScope.launch {
+            repository.getPlanetById(planetId)?.let { planet ->
+                name = planet.name
+                period = planet.period.toString()
+                this@EditPlanetViewModel.planet = planet
+            }
+        }
+    }
 
     fun onNameChange(newName: String) {
         name = newName
@@ -32,16 +48,31 @@ class AddPlanetViewModel(
         viewModelScope.launch {
             isSubmitting = true
             try {
-                repository.insertPlanet(
+                repository.updatePlanet(
                     PlanetEntity(
+                        id = planetId,
                         name = name,
                         period = period.toDouble(),
-                        isVisible = true,
+                        isVisible = planet?.isVisible ?: true
                     )
                 )
                 onSuccess()
             } finally {
                 isSubmitting = false
+            }
+        }
+    }
+
+    fun delete(onSuccess: () -> Unit) {
+        planet?.let { p ->
+            viewModelScope.launch {
+                isDeleting = true
+                try {
+                    repository.deletePlanet(p)
+                    onSuccess()
+                } finally {
+                    isDeleting = false
+                }
             }
         }
     }

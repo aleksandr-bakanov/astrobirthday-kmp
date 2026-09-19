@@ -8,6 +8,7 @@ import bav.astro.kmp.shared.ui.add_person.AddPersonViewModel
 import bav.astro.kmp.shared.ui.add_planet.AddPlanetViewModel
 import bav.astro.kmp.shared.ui.birthdays.BirthdaysViewModel
 import bav.astro.kmp.shared.ui.edit_person.EditPersonViewModel
+import bav.astro.kmp.shared.ui.edit_planet.EditPlanetViewModel
 import bav.astro.kmp.shared.ui.person_list.PersonListViewModel
 import bav.astro.kmp.shared.ui.planet_list.PlanetListViewModel
 import org.koin.core.module.dsl.viewModel
@@ -31,6 +32,12 @@ val commonModule = module {
     }
     viewModelOf(::PlanetListViewModel)
     viewModelOf(::AddPlanetViewModel)
+    viewModel { params ->
+        EditPlanetViewModel(
+            planetId = params.get(),
+            repository = get(),
+        )
+    }
 }
 
 val appModule = listOf(commonModule, platformModule)

@@ -23,4 +23,9 @@ sealed interface NavKey {
 
     @Serializable
     data object AddPlanet : NavKey
+
+    @Serializable
+    data class EditPlanet(
+        val planetId: Int,
+    ) : NavKey
 }

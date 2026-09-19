@@ -35,6 +35,8 @@ import bav.astro.kmp.shared.ui.birthdays.BirthdaysScreen
 import bav.astro.kmp.shared.ui.birthdays.BirthdaysViewModel
 import bav.astro.kmp.shared.ui.edit_person.EditPersonScreen
 import bav.astro.kmp.shared.ui.edit_person.EditPersonViewModel
+import bav.astro.kmp.shared.ui.edit_planet.EditPlanetScreen
+import bav.astro.kmp.shared.ui.edit_planet.EditPlanetViewModel
 import bav.astro.kmp.shared.ui.person_list.PersonListScreen
 import bav.astro.kmp.shared.ui.person_list.PersonListViewModel
 import bav.astro.kmp.shared.ui.planet_list.PlanetListScreen
@@ -147,9 +149,9 @@ fun App() {
                             viewModel = viewModel,
                             onAddPlanetClick = { backStack.add(NavKey.AddPlanet) },
                             onEditPlanetClick = { planet ->
-//                                backStack.add(
-//                                    NavKey.EditPerson(personId = person.id)
-//                                )
+                                backStack.add(
+                                    NavKey.EditPlanet(planetId = planet.id)
+                                )
                             }
                         )
                     }
@@ -158,6 +160,17 @@ fun App() {
                     ) {
                         val viewModel = koinViewModel<AddPlanetViewModel>()
                         AddPlanetScreen(
+                            viewModel = viewModel,
+                            onDismiss = { backStack.removeLastOrNull() }
+                        )
+                    }
+                    entry<NavKey.EditPlanet> {
+                        val viewModel = koinViewModel<EditPlanetViewModel>(
+                            parameters = {
+                                parametersOf(it.planetId)
+                            }
+                        )
+                        EditPlanetScreen(
                             viewModel = viewModel,
                             onDismiss = { backStack.removeLastOrNull() }
                         )
