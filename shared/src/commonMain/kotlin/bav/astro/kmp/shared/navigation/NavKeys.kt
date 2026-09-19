@@ -20,4 +20,7 @@ sealed interface NavKey {
 
     @Serializable
     data object PlanetList : NavKey
+
+    @Serializable
+    data object AddPlanet : NavKey
 }

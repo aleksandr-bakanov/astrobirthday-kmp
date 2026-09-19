@@ -5,6 +5,7 @@ import bav.astro.kmp.shared.database.getRoomDatabase
 import bav.astro.kmp.shared.repository.PersonRepository
 import bav.astro.kmp.shared.repository.PlanetRepository
 import bav.astro.kmp.shared.ui.add_person.AddPersonViewModel
+import bav.astro.kmp.shared.ui.add_planet.AddPlanetViewModel
 import bav.astro.kmp.shared.ui.birthdays.BirthdaysViewModel
 import bav.astro.kmp.shared.ui.edit_person.EditPersonViewModel
 import bav.astro.kmp.shared.ui.person_list.PersonListViewModel
@@ -29,6 +30,7 @@ val commonModule = module {
         )
     }
     viewModelOf(::PlanetListViewModel)
+    viewModelOf(::AddPlanetViewModel)
 }
 
 val appModule = listOf(commonModule, platformModule)

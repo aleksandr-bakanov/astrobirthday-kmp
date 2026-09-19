@@ -7,6 +7,7 @@
     <string name="edit_planet">Редактировать планету</string>
     <string name="name">Имя</string>
     <string name="birthday_format">День рождения (дд-мм-гггг)</string>
+    <string name="period_format">Период (в земных днях)</string>
     <string name="submit">Сохранить</string>
     <string name="update">Обновить</string>
     <string name="delete">Удалить</string>

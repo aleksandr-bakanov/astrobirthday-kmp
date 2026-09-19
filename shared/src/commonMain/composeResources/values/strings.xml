@@ -7,6 +7,7 @@
     <string name="edit_planet">Edit planet</string>
     <string name="name">Name</string>
     <string name="birthday_format">Birthday (dd-mm-yyyy)</string>
+    <string name="period_format">Period (in Earth days)</string>
     <string name="submit">Submit</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>
