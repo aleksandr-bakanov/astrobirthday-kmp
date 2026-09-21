@@ -103,7 +103,11 @@ object PlanetUtils {
             } else {
                 personBirthday.daysUntil(today).toDouble()
             }
-            val currentYearsOnPlanet = userAgeInEarthDays / period
+            val currentYearsOnPlanet = if (personBirthday == today) {
+                0.01
+            } else {
+                userAgeInEarthDays / period
+            }
             val firstNextBirthday = personBirthday.plus(
                 value = ceil(period * ceil(currentYearsOnPlanet)).toLong(),
                 unit = DateTimeUnit.DAY

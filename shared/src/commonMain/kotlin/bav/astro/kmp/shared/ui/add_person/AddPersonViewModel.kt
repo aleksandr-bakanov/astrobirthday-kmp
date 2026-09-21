@@ -8,8 +8,8 @@ import androidx.lifecycle.viewModelScope
 import bav.astro.kmp.shared.database.Person
 import bav.astro.kmp.shared.repository.PersonRepository
 import bav.astro.kmp.shared.util.convertBirthdayForDb
+import bav.astro.kmp.shared.util.isValidDate
 import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDate
 
 class AddPersonViewModel(
     private val repository: PersonRepository
@@ -46,22 +46,5 @@ class AddPersonViewModel(
                 isSubmitting = false
             }
         }
-    }
-
-    private fun isValidDate(date: String): Boolean {
-        val regexValid = DATE_REGEX.matches(date)
-        return if (regexValid) {
-            val parts = date.split("-")
-            try {
-                LocalDate.parse("${parts[2]}-${parts[1]}-${parts[0]}")
-                true
-            } catch (_ : IllegalArgumentException) {
-                false
-            }
-        } else false
-    }
-
-    private companion object {
-        private val DATE_REGEX = Regex("""\d{2}-\d{2}-\d{4}""")
     }
 }
