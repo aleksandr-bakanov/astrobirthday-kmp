@@ -29,3 +29,13 @@ fun isValidDate(date: String): Boolean {
         }
     } else false
 }
+
+fun isValidPeriod(period: String): Boolean {
+    return try {
+        val dPeriod = period.toDouble()
+        // Must be positive
+        dPeriod > 0.0
+    } catch (_ : NumberFormatException) {
+        false
+    }
+}

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import bav.astro.kmp.shared.database.PlanetEntity
 import bav.astro.kmp.shared.repository.PlanetRepository
+import bav.astro.kmp.shared.util.isValidPeriod
 import kotlinx.coroutines.launch
 
 class AddPlanetViewModel(
@@ -43,15 +44,6 @@ class AddPlanetViewModel(
             } finally {
                 isSubmitting = false
             }
-        }
-    }
-
-    private fun isValidPeriod(period: String): Boolean {
-        return try {
-            period.toDouble()
-            true
-        } catch (_ : NumberFormatException) {
-            false
         }
     }
 }
