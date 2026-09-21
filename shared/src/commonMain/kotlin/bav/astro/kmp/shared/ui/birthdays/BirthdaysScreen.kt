@@ -91,7 +91,7 @@ fun BirthdayRow(data: PersonBirthdayData) {
             horizontalAlignment = Alignment.End
         ) {
             Text(
-                text = data.planetType.toString(),
+                text = data.planetName,
                 style = MaterialTheme.typography.bodyMedium
             )
             Spacer(modifier = Modifier.height(4.dp))

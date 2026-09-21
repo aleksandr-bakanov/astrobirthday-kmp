@@ -32,15 +32,15 @@ import androidx.compose.ui.unit.dp
 import astrokmp.shared.generated.resources.Res
 import astrokmp.shared.generated.resources.add_planet
 import astrokmp.shared.generated.resources.no_entries
-import bav.astro.kmp.shared.database.Person
-import bav.astro.kmp.shared.database.PlanetEntity
+import bav.astro.kmp.shared.planets.Planet
+import bav.astro.kmp.shared.planets.PlanetType
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun PlanetListScreen(
     viewModel: PlanetListViewModel,
     onAddPlanetClick: () -> Unit,
-    onEditPlanetClick: (PlanetEntity) -> Unit,
+    onEditPlanetClick: (Planet) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val planets by viewModel.uiState.collectAsState()
@@ -85,9 +85,9 @@ fun PlanetListScreen(
 
 @Composable
 fun PlanetRow(
-    planet: PlanetEntity,
-    onEditPlanetClick: (PlanetEntity) -> Unit,
-    onSwitchVisibilityClick: (PlanetEntity) -> Unit,
+    planet: Planet,
+    onEditPlanetClick: (Planet) -> Unit,
+    onSwitchVisibilityClick: (Planet) -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -120,11 +120,13 @@ fun PlanetRow(
                     contentDescription = null
                 )
             }
-            Spacer(modifier = Modifier.width(4.dp))
-            Button(
-                onClick = { onEditPlanetClick(planet) }
-            ) {
-                Icon(Icons.Default.Edit, contentDescription = null)
+            if (planet.type == PlanetType.CUSTOM) {
+                Spacer(modifier = Modifier.width(4.dp))
+                Button(
+                    onClick = { onEditPlanetClick(planet) }
+                ) {
+                    Icon(Icons.Default.Edit, contentDescription = null)
+                }
             }
         }
     }

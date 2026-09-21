@@ -4,20 +4,24 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import bav.astro.kmp.shared.planets.PlanetUtils
 import bav.astro.kmp.shared.repository.PersonRepository
+import bav.astro.kmp.shared.repository.PlanetRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
 class BirthdaysViewModel(
-    repository: PersonRepository,
+    personRepository: PersonRepository,
+    planetRepository: PlanetRepository,
 ) : ViewModel() {
-    val uiState: StateFlow<List<PersonBirthdayData>> = repository.getVisiblePeople()
-        .map { people ->
+    val uiState: StateFlow<List<PersonBirthdayData>> = personRepository.getVisiblePeople()
+        .combine(planetRepository.getVisiblePlanets()) { people, planets ->
             PlanetUtils.getBirthdays(
                 persons = people,
+                planets = planets,
             )
-        }.stateIn(
+        }
+        .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()

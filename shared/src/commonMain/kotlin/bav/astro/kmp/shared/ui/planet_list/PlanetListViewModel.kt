@@ -2,9 +2,7 @@ package bav.astro.kmp.shared.ui.planet_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import bav.astro.kmp.shared.database.Person
-import bav.astro.kmp.shared.database.PlanetEntity
-import bav.astro.kmp.shared.repository.PersonRepository
+import bav.astro.kmp.shared.planets.Planet
 import bav.astro.kmp.shared.repository.PlanetRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -14,17 +12,18 @@ import kotlinx.coroutines.launch
 class PlanetListViewModel(
     private val repository: PlanetRepository
 ) : ViewModel() {
-    val uiState: StateFlow<List<PlanetEntity>> = repository.getAllPlanets()
+    val uiState: StateFlow<List<Planet>> = repository.getAllPlanets()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
 
-    fun switchPlanetVisibility(planetEntity: PlanetEntity) {
+    fun switchPlanetVisibility(planet: Planet) {
         viewModelScope.launch {
-            repository.updatePlanet(
-                planetEntity.copy(isVisible = !planetEntity.isVisible)
+            repository.updatePlanetVisibility(
+                planet = planet,
+                isVisible = !planet.isVisible,
             )
         }
     }

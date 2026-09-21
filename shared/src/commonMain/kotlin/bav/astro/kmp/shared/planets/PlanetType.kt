@@ -14,5 +14,7 @@ enum class PlanetType {
     HAUMEA,
     MAKEMAKE,
     ERIS,
-    SEDNA
+    SEDNA,
+
+    CUSTOM,
 }

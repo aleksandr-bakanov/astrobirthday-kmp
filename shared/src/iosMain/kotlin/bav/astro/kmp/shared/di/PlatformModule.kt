@@ -1,8 +1,12 @@
 package bav.astro.kmp.shared.di
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.room.Room
 import bav.astro.kmp.shared.database.AppDatabase
 import bav.astro.kmp.shared.database.AppDatabaseConstructor
+import bav.astro.kmp.shared.datastore.createDataStore
+import bav.astro.kmp.shared.datastore.dataStoreFileName
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSUserDomainMask
@@ -12,11 +16,16 @@ import org.koin.dsl.module
 @OptIn(ExperimentalForeignApi::class)
 actual val platformModule = module {
     single {
-        val dbFilePath = documentDirectory() + "/astro.db"
+        val documentDirectory = documentDirectory()
+        val dbFilePath = "$documentDirectory/astro.db"
         Room.databaseBuilder<AppDatabase>(
             name = dbFilePath,
             factory = { AppDatabaseConstructor.initialize() }
         )
+    }
+
+    single<DataStore<Preferences>> {
+        createDataStore()
     }
 }
 
@@ -29,5 +38,15 @@ private fun documentDirectory(): String {
         create = false,
         error = null
     )
-    return documentDirectory?.path ?: ""
+    val path = documentDirectory?.path
+    requireNotNull(path)
+    return path
 }
+
+@OptIn(ExperimentalForeignApi::class)
+private fun createDataStore(): DataStore<Preferences> = createDataStore(
+    producePath = {
+        val documentDirectory = documentDirectory()
+        "$documentDirectory/$dataStoreFileName"
+    }
+)

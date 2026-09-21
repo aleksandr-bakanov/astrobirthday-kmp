@@ -30,6 +30,7 @@ object PlanetUtils {
      */
     fun getBirthdays(
         persons: List<Person>,
+        planets: List<Planet>,
         start: Int = 0,
         size: Int = 100,
     ) : List<PersonBirthdayData> {
@@ -56,6 +57,7 @@ object PlanetUtils {
                     PersonBirthdayData(
                         name = person.name,
                         planetType = planet.type,
+                        planetName = planet.name,
                         ageOnNextBirthday = birthday.ageOnNextBirthday,
                         birthday = birthday.nearestBirthday,
                     )
@@ -131,18 +133,6 @@ object PlanetUtils {
             }
         }
     }
-
-    val planets = listOf(
-        Planet(PlanetType.MERCURY, 87.969),
-        Planet(PlanetType.VENUS, 224.701),
-        Planet(PlanetType.EARTH, 365.25),
-        Planet(PlanetType.MARS, 779.94),
-        Planet(PlanetType.JUPITER, 4332.589),
-        Planet(PlanetType.SATURN, 10759.22),
-        Planet(PlanetType.URANUS, 30685.4),
-        Planet(PlanetType.NEPTUNE, 60190.03),
-        Planet(PlanetType.PLUTO, 90553.02),
-    )
 }
 
 data class NearestBirthdayData(

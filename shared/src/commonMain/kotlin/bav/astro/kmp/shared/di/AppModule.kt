@@ -20,7 +20,7 @@ val commonModule = module {
     single { get<AppDatabase>().personDao() }
     single { get<AppDatabase>().planetDao() }
     single { PersonRepository(get()) }
-    single { PlanetRepository(get()) }
+    single { PlanetRepository(get(), get()) }
     viewModelOf(::PersonListViewModel)
     viewModelOf(::AddPersonViewModel)
     viewModelOf(::BirthdaysViewModel)

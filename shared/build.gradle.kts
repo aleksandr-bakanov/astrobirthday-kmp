@@ -51,7 +51,11 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.compose.uiTooling)
+            implementation(libs.androidx.datastore.preferences)
             implementation(libs.koin.android)
+        }
+        iosMain.dependencies {
+            implementation(libs.androidx.datastore.preferences)
         }
         commonMain.dependencies {
             implementation(libs.androidx.room.runtime)
@@ -66,6 +70,7 @@ kotlin {
             implementation(libs.compose.ui)
             implementation(libs.compose.components.resources)
             implementation(libs.compose.uiToolingPreview)
+            implementation(libs.androidx.datastore.preferences)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.androidx.navigation3.ui)

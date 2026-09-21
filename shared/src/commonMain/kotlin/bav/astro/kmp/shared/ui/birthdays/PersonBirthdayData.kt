@@ -12,6 +12,7 @@ import kotlinx.datetime.LocalDate
 data class PersonBirthdayData(
     val name: String,
     val planetType: PlanetType,
+    val planetName: String,
     val ageOnNextBirthday: Int,
     val birthday: LocalDate,
 )
